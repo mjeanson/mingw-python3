@@ -16,3 +16,5 @@ MINGW_CHOST="x86_64-w64-mingw32"
 MINGW_PREFIX="/mingw64"
 PREFIX_WIN="$(cygpath -wm ${MINGW_PREFIX})"
 VERABI=${_pybasever}m
+
+CFLAGS="-static-libgcc -static-libstdc++"
