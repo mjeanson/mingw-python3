@@ -6,9 +6,9 @@ set -eu
 
 pkgver=36.2.7
 
-wget --continue https://github.com/pypa/setuptools/archive/v${pkgver}.tar.gz
+wget --continue https://github.com/pypa/setuptools/archive/v${pkgver}.tar.gz -O setuptools-${pkgver}.tar.gz
 
-tar xf v${pkgver}.tar.gz
+tar xf setuptools-${pkgver}.tar.gz
 
 cd "${srcdir}/setuptools-${pkgver}"
 
