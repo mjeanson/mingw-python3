@@ -5,6 +5,8 @@ set -eu
 MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
 
 depends=(
+	"base-devel"
+	"${MINGW_PACKAGE_PREFIX}-toolchain"
 	"${MINGW_PACKAGE_PREFIX}-gcc"
 	"${MINGW_PACKAGE_PREFIX}-gcc-libs"
          "${MINGW_PACKAGE_PREFIX}-expat"
