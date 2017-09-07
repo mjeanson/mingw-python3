@@ -1,0 +1,19 @@
+diff -Naur Python-3.5.2-orig/Lib/distutils/cygwinccompiler.py Python-3.5.2/Lib/distutils/cygwinccompiler.py
+--- Python-3.5.2-orig/Lib/distutils/cygwinccompiler.py	2016-07-12 14:21:33.833800700 +0300
++++ Python-3.5.2/Lib/distutils/cygwinccompiler.py	2016-07-12 14:21:41.350300700 +0300
+@@ -48,7 +48,6 @@
+ import os
+ import sys
+ import copy
+-from subprocess import Popen, PIPE, check_output
+ import re
+ 
+ from distutils.ccompiler import gen_preprocess_options, gen_lib_options
+@@ -385,6 +384,7 @@
+     executable = cmd.split()[0]
+     if find_executable(executable) is None:
+         return None
++    from subprocess import Popen, PIPE
+     out = Popen(cmd, shell=True, stdout=PIPE).stdout
+     try:
+         out_string = out.read()

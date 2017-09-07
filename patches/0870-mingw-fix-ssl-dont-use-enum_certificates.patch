@@ -1,0 +1,20 @@
+--- Python-3.6.1/Lib/ssl.py.orig	2017-03-21 07:32:38.000000000 +0100
++++ Python-3.6.1/Lib/ssl.py	2017-06-13 18:53:10.237762400 +0200
+@@ -156,7 +156,7 @@
+ _SSLv2_IF_EXISTS = getattr(_SSLMethod, 'PROTOCOL_SSLv2', None)
+ 
+ 
+-if sys.platform == "win32":
++if sys.platform == "win32" and sys.version.find("GCC") == -1:
+     from _ssl import enum_certificates, enum_crls
+ 
+ from socket import socket, AF_INET, SOCK_STREAM, create_connection
+@@ -445,7 +445,7 @@
+     def load_default_certs(self, purpose=Purpose.SERVER_AUTH):
+         if not isinstance(purpose, _ASN1Object):
+             raise TypeError(purpose)
+-        if sys.platform == "win32":
++        if sys.platform == "win32" and sys.version.find("GCC") == -1:
+             for storename in self._windows_cert_stores:
+                 self._load_windows_store_certs(storename, purpose)
+         self.set_default_verify_paths()

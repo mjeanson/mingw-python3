@@ -1,0 +1,11 @@
+--- Python-3.6.1/setup.py.orig	2017-06-13 13:01:14.879033000 +0200
++++ Python-3.6.1/setup.py	2017-06-13 13:01:54.864320000 +0200
+@@ -2292,7 +2292,7 @@
+             else:
+                 newfilename = filename + minoronly
+             log.info('renaming %s to %s', filename, newfilename)
+-            os.rename(filename, newfilename)
++            os.replace(filename, newfilename)
+             newoutfiles.append(newfilename)
+             if filename in updated_files:
+                 newupdated_files.append(newfilename)

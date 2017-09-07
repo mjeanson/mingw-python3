@@ -1,0 +1,14 @@
+diff -Naur Python-3.5.2-orig/Include/py_curses.h Python-3.5.2/Include/py_curses.h
+--- Python-3.5.2-orig/Include/py_curses.h	2016-07-12 14:22:25.991300700 +0300
++++ Python-3.5.2/Include/py_curses.h	2016-07-12 14:22:26.239300700 +0300
+@@ -56,6 +56,10 @@
+ #endif
+ #endif
+ 
++#if defined(__MINGW32__) && !defined(_ISPAD)
++#define _ISPAD 0x10
++#endif
++
+ #ifdef HAVE_NCURSES_H
+ /* configure was checking <curses.h>, but we will
+    use <ncurses.h>, which has all these features. */

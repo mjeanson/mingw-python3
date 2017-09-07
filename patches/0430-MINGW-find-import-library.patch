@@ -1,0 +1,11 @@
+diff -Naur Python-3.5.2-orig/Lib/distutils/cygwinccompiler.py Python-3.5.2/Lib/distutils/cygwinccompiler.py
+--- Python-3.5.2-orig/Lib/distutils/cygwinccompiler.py	2016-07-12 14:21:32.060800700 +0300
++++ Python-3.5.2/Lib/distutils/cygwinccompiler.py	2016-07-12 14:21:32.300300700 +0300
+@@ -93,6 +93,7 @@
+     obj_extension = ".o"
+     static_lib_extension = ".a"
+     shared_lib_extension = ".dll"
++    dylib_lib_extension = ".dll.a"
+     static_lib_format = "lib%s%s"
+     shared_lib_format = "%s%s"
+     exe_extension = ".exe"

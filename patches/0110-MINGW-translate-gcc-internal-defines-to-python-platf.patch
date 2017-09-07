@@ -1,0 +1,24 @@
+--- Python-3.6.1/Include/pyport.h.orig	2017-06-13 17:39:57.300500800 +0200
++++ Python-3.6.1/Include/pyport.h	2017-06-13 17:40:55.502829700 +0200
+@@ -5,6 +5,21 @@
+ 
+ #include <inttypes.h>
+ 
++#ifdef __MINGW32__
++/* Translate GCC[mingw*] platform specific defines to those
++ * used in python code.
++ */
++#if !defined(MS_WIN64) && defined(_WIN64)
++#  define MS_WIN64
++#endif
++#if !defined(MS_WIN32) && defined(_WIN32)
++#  define MS_WIN32
++#endif
++#if !defined(MS_WINDOWS) && defined(MS_WIN32)
++#  define MS_WINDOWS
++#endif
++#endif /*def __MINGW32__*/
++
+ /**************************************************************************
+ Symbols and macros to supply platform-independent interfaces to basic
+ C language & library operations whose spellings vary across platforms.

@@ -1,0 +1,30 @@
+--- Python-3.6.1/Lib/site.py.orig	2017-03-21 07:32:38.000000000 +0100
++++ Python-3.6.1/Lib/site.py	2017-06-13 18:43:05.740187100 +0200
+@@ -268,6 +268,12 @@
+             USER_SITE = get_path('purelib', 'osx_framework_user')
+             return USER_SITE
+ 
++    if sys.platform == 'win32':
++        from sysconfig import _POSIX_BUILD
++        if _POSIX_BUILD:
++            USER_SITE = get_path('purelib', 'posix_user')
++            return USER_SITE
++
+     USER_SITE = get_path('purelib', '%s_user' % os.name)
+     return USER_SITE
+ 
+@@ -298,12 +304,13 @@
+     if prefixes is None:
+         prefixes = PREFIXES
+ 
++    from sysconfig import _POSIX_BUILD
+     for prefix in prefixes:
+         if not prefix or prefix in seen:
+             continue
+         seen.add(prefix)
+ 
+-        if os.sep == '/':
++        if _POSIX_BUILD:
+             sitepackages.append(os.path.join(prefix, "lib",
+                                         "python%d.%d" % sys.version_info[:2],
+                                         "site-packages"))
