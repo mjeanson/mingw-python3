@@ -18,7 +18,7 @@ export ac_cv_working_tzset=no
 [ -d "${builddir}" ] && rm -rf "${builddir}"
 mkdir -p "${builddir}" && cd "${builddir}"
 
-MSYSTEM=MINGW "${srcdir}/Python-${pkgver}/configure" \
+MSYSTEM=MINGW ../Python-${pkgver}/configure \
   --prefix=${MINGW_PREFIX} \
   --host=${MINGW_CHOST} \
   --build=${MINGW_CHOST} \
@@ -31,9 +31,13 @@ MSYSTEM=MINGW "${srcdir}/Python-${pkgver}/configure" \
 
 make -j
 
+echo -e "\n\nDone with make\n\n"
+
 MSYSTEM=MINGW \
   MSYS2_ARG_CONV_EXCL="--prefix=;--install-scripts=;--install-platlib=" \
   make install DESTDIR="$pkgdir"
+
+echo -e "\n\nDone with install\n\n"
 
 # gdb pretty printers for debugging Python itself; to use:
 # python

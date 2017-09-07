@@ -4,7 +4,7 @@ set -eu
 
 MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
 
-depends=(
+py_depends=(
 	"base-devel"
 	"${MINGW_PACKAGE_PREFIX}-toolchain"
 	"${MINGW_PACKAGE_PREFIX}-gcc"
@@ -24,4 +24,11 @@ depends=(
 	 "${MINGW_PACKAGE_PREFIX}-pkg-config"
         )
 
-pacman -S "${depends[@]}"
+bt_depends=(
+	"${MINGW_PACKAGE_PREFIX}-glib2"
+	"${MINGW_PACKAGE_PREFIX}-popt"
+	"${MINGW_PACKAGE_PREFIX}-swig"
+	"glib2-devel"
+)
+
+pacman -S "${py_depends[@]}" "${bt_depends[@]}"
