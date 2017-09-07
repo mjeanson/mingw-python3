@@ -2,8 +2,7 @@
 
 set -eu
 
-pkgver=3.6.2
-patchdir="../patches"
+. common.sh
 
 wget --continue https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz
 
