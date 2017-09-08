@@ -4,6 +4,9 @@ set -eu
 
 . common.sh
 
+#CFLAGS="-static -static-libgcc -static-libstdc++"
+#CPPFLAGS="-static"
+
 CFLAGS+=" -fwrapv -D__USE_MINGW_ANSI_STDIO=1 "
 CXXFLAGS+=" -fwrapv -D__USE_MINGW_ANSI_STDIO=1"
 CPPFLAGS+=" -I${PREFIX_WIN}/include/ncursesw "
@@ -28,6 +31,8 @@ MSYSTEM=MINGW ../Python-${pkgver}/configure \
   --with-system-ffi \
   --without-ensurepip \
   OPT=""
+
+#sed -i '1s/^/*static*\n/' Modules/Setup
 
 make -j
 
@@ -90,3 +95,24 @@ sed -i "s|${pkgdir}${MINGW_PREFIX}|${MINGW_PREFIX}|g" \
 # Create python executable with windows subsystem
 cp -f "${pkgdir}${MINGW_PREFIX}"/bin/python3.exe "${pkgdir}${MINGW_PREFIX}"/bin/python3w.exe
 ${MINGW_PREFIX}/bin/objcopy --subsystem windows "${pkgdir}${MINGW_PREFIX}"/bin/python3w.exe
+
+
+# Cleanup unwanted modules
+rm "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/lib-dynload/_msi-cpython-${VERABI}.dll
+rm "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/lib-dynload/_tkinter-cpython-${VERABI}.dll
+rm "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/lib-dynload/_gdbm-cpython-${VERABI}.dll
+rm "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/lib-dynload/_sqlite3-cpython-${VERABI}.dll
+rm -rf "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/msilib
+rm -rf "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/tkinter
+rm -rf "${pkgdir}${MINGW_PREFIX}"/lib/python${_pybasever}/sqlite3
+
+# Copy dll dependencies
+cp ${MINGW_PREFIX}/bin/zlib1.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/libbz2-1.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/LIBEAY32.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/libexpat-1.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/libffi-6.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/liblzma-5.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/libreadline7.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/libtermcap-0.dll "${pkgdir}${MINGW_PREFIX}"/bin/
+cp ${MINGW_PREFIX}/bin/SSLEAY32.dll "${pkgdir}${MINGW_PREFIX}"/bin/
